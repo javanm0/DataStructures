@@ -23,30 +23,28 @@ public:
 };
 
 // Header for implementation of queue class
+template <class T>
 class Queue
 {
 private:
-    class Node
-    {
-    public:
-        char data;
-        Node* next;
-    };
-    Node *front;
-    Node *rear;
+    T *queueArray; // Points to the queue array
+    int queueSize; // Size of array
+    int front; // Points to front
+    int rear; // Points to rear
+    int numItems; // Number of elements in the queue
 public:
-    Queue();
+    Queue(int);
     ~Queue();
     void enqueue(char);
     char dequeue();
     bool isEmpty() const;
 };
 
-
 int PalindromeI::test_string(const std::string& s)
 {
+    int lengthString = s.length();
     Stack stack;
-    Queue queue;
+    Queue<char> queue(lengthString);
 
     // String with one character or less is a palindrome
     if (s.length() <= 1)
@@ -54,18 +52,14 @@ int PalindromeI::test_string(const std::string& s)
         return -1;
     }
 
-    // Converts string to lowercase
-    std::string lowerS = s;
-    for (int i = 0; i < lowerS.length(); i++)
-    {
-        lowerS[i] = tolower(lowerS[i]);
-    }
-
     // Push all letters in string to stack and enqueue to queue
     for (int i = 0; i < s.length(); i++)
     {
-        stack.push(s[i]);
-        queue.enqueue(s[i]);
+        if (isalpha(s[i]))
+        {
+            stack.push(tolower(s[i]));
+            queue.enqueue(tolower(s[i]));
+        }
     }
 
     // Pop and dequeue all letters from stack and queue to compare
@@ -125,68 +119,62 @@ bool Stack::isEmpty() const
 // Queue implementation functions
 
 // Queue constructor
-Queue::Queue()
+template <class T>
+Queue<T>::Queue(int size)
 {
-    front = nullptr;
-    rear = nullptr;
+    queueArray = new T[size]; // Allocates memory for array
+    queueSize = size;
+    front = -1;
+    rear = -1;
+    numItems = 0;
 }
 
 // Queue destructor
-Queue::~Queue()
+template <class T>
+Queue<T>::~Queue()
 {
-    while (!isEmpty())
+    if (numItems > 0)\
     {
-        dequeue();
+        delete [] queueArray;
     }
 }
 
 // Enqueue function
-void Queue::enqueue(char c)
+template <class T>
+void Queue<T>::enqueue(char c)
 {
-    Node *newNode = new Node;
-    newNode->data = c;
-    newNode->next = nullptr;
-    
-    if (isEmpty())
+    if (numItems < queueSize)
     {
-        front = newNode;
-        rear = newNode;
+        queueArray[rear] = c; // Adds item to rear
+        rear = (rear + 1) % queueSize;
+        numItems++;
     }
     else
     {
-        rear->next = newNode;
-        rear = newNode;
+        throw "The queue is full";
     }
 }
 
 // Dequeue function
-char Queue::dequeue()
+template <class T>
+char Queue<T>::dequeue()
 {
-    Node *tempPtr = nullptr;
-
     if (isEmpty())
     {
         throw "The queue is empty";
     }
     else
     {
-        char c = front->data;
-        tempPtr = front;
-        front = front->next;
-        delete tempPtr;
-        return c;
+        T item = queueArray [front];
+        front = (front + 1) % queueSize;
+        numItems--;
+        return item;
     }
 }
 
 // isEmpty function
-bool Queue::isEmpty() const
+template <class T>
+bool Queue<T>::isEmpty() const
 {
-    if (front == nullptr)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return numItems == 0;
 }
