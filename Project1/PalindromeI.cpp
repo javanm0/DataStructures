@@ -45,6 +45,7 @@ int PalindromeI::test_string(const std::string& s)
     int lengthString = s.length();
     Stack stack;
     Queue<char> queue(lengthString);
+    int matches = 0;
 
     // String with one character or less is a palindrome
     if (s.length() <= 1)
@@ -62,15 +63,21 @@ int PalindromeI::test_string(const std::string& s)
         }
     }
 
+    // Could instead do for (char c: s)
+    // if (isalnum(c))
+    // Push and enqueue c
+
     // Pop and dequeue all letters from stack and queue to compare
     while (stack.isEmpty() == false && queue.isEmpty() == false)
     {
         if (stack.pop() != queue.dequeue())
         {
-            return 1;
+            // Call destructor for stack
+            stack.~Stack();
+            return matches;
         }
+        matches++;
     }
-
     return -1; // String is a palindrome
 }
 
@@ -133,7 +140,7 @@ Queue<T>::Queue(int size)
 template <class T>
 Queue<T>::~Queue()
 {
-    if (numItems > 0)\
+    if (numItems > 0)
     {
         delete [] queueArray;
     }

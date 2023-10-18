@@ -44,8 +44,6 @@ int PalindromeR::test_string(const std::string& s)
     //if (lowerS[0] == lowerS[lowerS.length() - 1])
     {
         return test_string(lowerS.substr(first + 1, last - first - 1));    
-        // return test_string(lowerS.substr(1, lowerS.length() - 2));    
-
     }
     else
     {
