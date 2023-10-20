@@ -63,10 +63,6 @@ int PalindromeI::test_string(const std::string& s)
         }
     }
 
-    // Could instead do for (char c: s)
-    // if (isalnum(c))
-    // Push and enqueue c
-
     // Pop and dequeue all letters from stack and queue to compare
     while (stack.isEmpty() == false && queue.isEmpty() == false)
     {
@@ -110,6 +106,10 @@ void Stack::push(char c)
 // Pop function
 char Stack::pop()
 {
+    if (isEmpty())
+    {
+        throw "The stack is empty";
+    }
     char c = top->data;
     Node *temp = top->next;
     delete top;
@@ -131,8 +131,8 @@ Queue<T>::Queue(int size)
 {
     queueArray = new T[size]; // Allocates memory for array
     queueSize = size;
-    front = -1;
-    rear = -1;
+    front = 0;
+    rear = 0;
     numItems = 0;
 }
 
