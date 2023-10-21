@@ -47,12 +47,13 @@ int PalindromeI::test_string(const std::string& s)
     Queue<char> queue(lengthString);
     int matches = 0;
 
-    // String with one character or less is a palindrome
+    // String with one character or less is a palindrome so return now
     if (s.length() <= 1)
     {
         return -1;
     }
 
+    // Checks if character is alphabetical and converts to lowercase
     // Push all letters in string to stack and enqueue to queue
     for (int i = 0; i < s.length(); i++)
     {
@@ -68,11 +69,10 @@ int PalindromeI::test_string(const std::string& s)
     {
         if (stack.pop() != queue.dequeue())
         {
-            // Call destructor for stack
-            stack.~Stack();
+            stack.~Stack(); // Call destructor for stack object since the memory is dynamically allocated
             return matches;
         }
-        matches++;
+        matches++; // Counts the number of matches
     }
     return -1; // String is a palindrome
 }
