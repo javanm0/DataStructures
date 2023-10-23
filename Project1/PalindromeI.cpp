@@ -1,5 +1,6 @@
 // PalindromeI implementation file
 // Javan Miler
+// jlm451@uakron.edu
 
 #include "PalindromeI.hpp"
 

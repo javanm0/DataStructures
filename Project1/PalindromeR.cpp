@@ -1,5 +1,6 @@
 // PalindromeR implementation file
 // Javan Miller
+// jlm451@uakron.edu
 
 #include "PalindromeR.hpp"
 
@@ -41,7 +42,6 @@ int PalindromeR::test_string(const std::string& s)
     // Tests if first and last character in string is equivalent
     // If true, it recursively calls the function by creating a substring
     if (lowerS[first] == lowerS[last])
-    //if (lowerS[0] == lowerS[lowerS.length() - 1])
     {
         return test_string(lowerS.substr(first + 1, last - first - 1));    
     }
