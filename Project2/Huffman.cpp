@@ -1,5 +1,6 @@
 // huffman.cpp -- Huffman tree class
 // c. 2015 A. Deeter
+// Functions implemented by Javan Miller - jlm451
 
 #include "Huffman.hpp"
 
@@ -11,8 +12,23 @@
 // and '1' if youre recursing right
 // add a new <char, std::string> to the codes map with the character and its code for each leaf node
 // using std::make_pair (see create_freq)
-void Huffman::create_codes(HNode* node, const std::string& code) {
+void Huffman::create_codes(HNode* node, const std::string& code) 
+{
+  // Verifies that there is a node
+  if (node == nullptr) {
+    return;
+  }
 
+  // If node is a leaf, add character and code to map
+  if (node->value != '*') {
+    codes[node->value] = code;
+  }
+
+  // Recurse left and append 0
+  create_codes(node->left, code + '0');
+
+  // Recurse right and append 1
+  create_codes(node->right, code + '1');  
 }
 
 // implement this function
@@ -22,8 +38,22 @@ void Huffman::create_codes(HNode* node, const std::string& code) {
 // use binary tree serialization (using '/')
 // the characters from each HNode will be used (inner nodes should use '*')
 // there is no return value as s is being edited with each resursive call
-void Huffman::serialize_tree(HNode* node, std::string& s) {
+void Huffman::serialize_tree(HNode* node, std::string& s) 
+{
+  if (node == nullptr) // Base case
+  {
+    s += '/'; // Appends / to the string
+    return;
+  }
 
+  // Add the value of the node to the string
+  s += node->value;
+
+  // Recurse left
+  serialize_tree(node->left, s);
+
+  // Recurse right
+  serialize_tree(node->right, s);
 }
 
 // implement this function
@@ -32,8 +62,14 @@ void Huffman::serialize_tree(HNode* node, std::string& s) {
 // the encoded_string is not const because we are changing the reference as we go
 // if the code for a is 1, the code for b is 01, and the code for c is 00
 // the code for the word 'bad' would be '01100'
-void Huffman::encode_string(const std::string& input, std::string& encoded_string) {
+void Huffman::encode_string(const std::string& input, std::string& encoded_string) 
+{
+  encoded_string.clear(); // Clears the string
 
+  for (char c : input) 
+  {
+    encoded_string += codes.at(c); // Appends char code to string
+  }
 }
 
 Encoded Huffman::encode(const std::string& s) {
