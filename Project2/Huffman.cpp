@@ -14,7 +14,8 @@
 // using std::make_pair (see create_freq)
 void Huffman::create_codes(HNode* node, const std::string& code) 
 {
-  // Verifies that there is a node
+  // Base case
+  // Returns if node is null
   if (node == nullptr) {
     return;
   }
@@ -24,10 +25,10 @@ void Huffman::create_codes(HNode* node, const std::string& code)
     codes[node->value] = code;
   }
 
-  // Recurse left and append 0
+  // Recurse left and append 0 to code
   create_codes(node->left, code + '0');
 
-  // Recurse right and append 1
+  // Recurse right and append 1 to code
   create_codes(node->right, code + '1');  
 }
 
@@ -40,7 +41,9 @@ void Huffman::create_codes(HNode* node, const std::string& code)
 // there is no return value as s is being edited with each resursive call
 void Huffman::serialize_tree(HNode* node, std::string& s) 
 {
-  if (node == nullptr) // Base case
+  // Base case
+  // Returns if node is null
+  if (node == nullptr) 
   {
     s += '/'; // Appends / to the string
     return;
@@ -66,9 +69,10 @@ void Huffman::encode_string(const std::string& input, std::string& encoded_strin
 {
   encoded_string.clear(); // Clears the string
 
-  for (char c : input) 
+  // Steps through each element in the input string
+  for (int i = 0; i < input.size(); ++i)
   {
-    encoded_string += codes.at(c); // Appends char code to string
+    encoded_string += codes[input[i]]; // Appends char code to string
   }
 }
 
@@ -122,6 +126,7 @@ Encoded Huffman::encode(const std::string& s) {
 
   // return the final Encoded object
   return ret;
+  
 }
 
 // this function will create a map of characters to values based on the number of times the character was in the given string

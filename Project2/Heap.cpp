@@ -4,29 +4,29 @@
 
 void Heap::enqueue(HNode* element)
 {
-    // Checks to see if the tree has enough space
+    // Checks to see if the tree has enough space to insert another node
     if (++position >= tree.size())
     {
-        tree.resize(position * 2);
+        tree.resize(position * 2); // Doubles the size of the tree
     }
 
     tree[position] = element; // Adds element to end of tree
 
-    fix_up(position);
+    fix_up(position); // Recursively heapify
 
     count++;
 }
 
 void Heap::fix_up(const int& treeIndex)
 {
-    int parentIndex = treeIndex / 2;
+    int parentIndex = treeIndex / 2; // Parent
     
     // Swap if child is smaller than parent    
     if (parentIndex > 0 && *tree[treeIndex] < *tree[parentIndex])
     {
-        HNode* temp = tree[treeIndex];
-        tree[treeIndex] = tree[parentIndex];
-        tree[parentIndex] = temp;
+        HNode* temp = tree[treeIndex]; // Temporarily stores child
+        tree[treeIndex] = tree[parentIndex]; // Sets child to parent
+        tree[parentIndex] = temp; // Sets parent to child
 
         fix_up(parentIndex); // Recursively heapify
     }
@@ -42,7 +42,7 @@ HNode* Heap::dequeue()
 
     count--;
 
-    return root;
+    return root; // Returns root node
 }
 
 void Heap::fix_down(const int& treeIndex)
@@ -51,6 +51,7 @@ void Heap::fix_down(const int& treeIndex)
     int rightChild = leftChild + 1; // Right child
     int parentIndex = treeIndex; // Parent
 
+    // Returns if children are out of bounds
     if (leftChild >= tree.size() || rightChild >= tree.size() || parentIndex >= tree.size())
     {
         return;
@@ -92,5 +93,5 @@ void Heap::clear()
     position = 0;
     count = 0;
 
-    tree.resize(2); // Sets back to original size
+    tree.resize(2); // Sets tree back to original size
 }
