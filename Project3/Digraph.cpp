@@ -40,8 +40,11 @@ void Digraph::resetEdges()
     }
 }
 
+// Add an undirected edge to the graph from source to dest with weight wt
 void Digraph::addEdge(int source, int dest, int wt)
 {
+    distMatrix[source][dest] = wt; // Add edge from source to dest
+    distMatrix[dest][source] = wt; // Add edge from dest to source
 }
 
 void Digraph::delEdge(int source, int dest)
