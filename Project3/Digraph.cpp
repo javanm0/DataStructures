@@ -6,7 +6,7 @@
 // Returns the number of vertices in the graph
 unsigned int Digraph::noVertices()
 {
-    return 0;
+    return distMatrix.size();
 }
 
 unsigned int Digraph::noEdges()
