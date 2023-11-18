@@ -9,9 +9,23 @@ unsigned int Digraph::noVertices()
     return distMatrix.size();
 }
 
+// Returns the number of edges in the graph
 unsigned int Digraph::noEdges()
 {
-    return 0;
+    unsigned int countEdge = 0; // Counts the number of edges
+
+    for (int i = 0; i < distMatrix.size(); i++) // Each row
+    {
+        for (int j = 0; j < distMatrix.size(); j++) // Each element in row
+        {
+            if (distMatrix[i][j] != 0) // Is edge when not 0
+            {
+                countEdge++; // Adds to countEdge
+            }
+        }
+    }
+
+    return countEdge / 2; // Returns half because of symmetry
 }
 
 void Digraph::resetEdges()
