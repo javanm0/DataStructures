@@ -47,8 +47,11 @@ void Digraph::addEdge(int source, int dest, int wt)
     distMatrix[dest][source] = wt; // Add edge from dest to source
 }
 
+// Delete the edge from source to dest
 void Digraph::delEdge(int source, int dest)
 {
+    distMatrix[source][dest] = std::numeric_limits<int>::max(); // Set edge from source to dest to max
+    distMatrix[dest][source] = std::numeric_limits<int>::max(); // Set edge from dest to source to max 
 }
 
 int Digraph::isEdge(int source, int dest)
