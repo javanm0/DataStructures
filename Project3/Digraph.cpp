@@ -28,8 +28,16 @@ unsigned int Digraph::noEdges()
     return countEdge / 2; // Returns half because of symmetry
 }
 
+// Resets all edges to 0
 void Digraph::resetEdges()
 {
+    for (int i = 0; i < distMatrix.size(); i++) // Each row
+    {
+        for (int j = 0; j < distMatrix.size(); j++) // Each element in row
+        {
+            distMatrix[i][j] = 0; // Resets to 0
+        }
+    }
 }
 
 void Digraph::addEdge(int source, int dest, int wt)
