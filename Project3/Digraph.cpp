@@ -54,9 +54,17 @@ void Digraph::delEdge(int source, int dest)
     distMatrix[dest][source] = std::numeric_limits<int>::max(); // Set edge from dest to source to max 
 }
 
+// Returns whether there is an edge from source to dest
 int Digraph::isEdge(int source, int dest)
 {
-    return 0;
+    if (distMatrix[source][dest] != std::numeric_limits<int>::max()) // If edge exists
+    {
+        return distMatrix[source][dest]; // Return weight
+    }
+    else // If edge does not exist
+    {
+        return 0;
+    }
 }
 
 int Digraph::dijkstra(int source, int dest)
