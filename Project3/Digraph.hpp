@@ -51,6 +51,15 @@ public:
    void delEdge(int source, int dest);
    int isEdge(int source, int dest);
    int dijkstra(int source, int dest);
+
+   // Destructor to free memory allocated to nodes
+   ~Digraph() 
+   {
+      for (Node* node: vertex)
+      {
+         delete node;
+      }
+   }
 };
 
 #endif
