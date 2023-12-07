@@ -1,5 +1,6 @@
 // Digraph.cpp -- directed graph class
 // c. 2017 T. O'Neil
+// Javan Miller - jlm451@uakron.edu
 
 #include "Digraph.hpp"
 #include <climits>
